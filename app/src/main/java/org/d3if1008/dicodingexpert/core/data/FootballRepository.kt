@@ -1,9 +1,9 @@
 package org.d3if1008.dicodingexpert
 
 import androidx.lifecycle.LiveData
-import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
+import com.dicoding.tourismapp.core.data.source.remote.response.FootballResponse
 
-class TourismRepository private constructor(
+class FootballRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
@@ -11,41 +11,41 @@ class TourismRepository private constructor(
 
     companion object {
         @Volatile
-        private var instance: TourismRepository? = null
+        private var instance: FootballRepository? = null
 
         fun getInstance(
             remoteData: RemoteDataSource,
             localData: LocalDataSource,
             appExecutors: AppExecutors
-        ): TourismRepository =
+        ): FootballRepository =
             instance ?: synchronized(this) {
-                instance ?: TourismRepository(remoteData, localData, appExecutors)
+                instance ?: FootballRepository(remoteData, localData, appExecutors)
             }
     }
 
-    fun getAllTourism(): LiveData<Resource<List<TourismEntity>>> =
-        object : NetworkBoundResource<List<TourismEntity>, List<TourismResponse>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<TourismEntity>> {
+    fun getAllTourism(): LiveData<Resource<List<FootballEntity>>> =
+        object : NetworkBoundResource<List<FootballEntity>, List<FootballResponse>>(appExecutors) {
+            override fun loadFromDB(): LiveData<List<FootballEntity>> {
                 return localDataSource.getAllTourism()
             }
 
-            override fun shouldFetch(data: List<TourismEntity>?): Boolean =
+            override fun shouldFetch(data: List<FootballEntity>?): Boolean =
                 data == null || data.isEmpty()
 
-            override fun createCall(): LiveData<ApiResponse<List<TourismResponse>>> =
+            override fun createCall(): LiveData<ApiResponse<List<FootballResponse>>> =
                 remoteDataSource.getAllTourism()
 
-            override fun saveCallResult(data: List<TourismResponse>) {
+            override fun saveCallResult(data: List<FootballResponse>) {
                 val tourismList = DataMapper.mapResponsesToEntities(data)
                 localDataSource.insertTourism(tourismList)
             }
         }.asLiveData()
 
-    fun getFavoriteTourism(): LiveData<List<TourismEntity>> {
+    fun getFavoriteTourism(): LiveData<List<FootballEntity>> {
         return localDataSource.getFavoriteTourism()
     }
 
-    fun setFavoriteTourism(tourism: TourismEntity, state: Boolean) {
+    fun setFavoriteTourism(tourism: FootballEntity, state: Boolean) {
         appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourism, state) }
     }
 }

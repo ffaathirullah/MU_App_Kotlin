@@ -1,12 +1,12 @@
 package org.d3if1008.dicodingexpert
 
-import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
+import com.dicoding.tourismapp.core.data.source.remote.response.FootballResponse
 
 object DataMapper {
-    fun mapResponsesToEntities(input: List<TourismResponse>): List<TourismEntity> {
-        val tourismList = ArrayList<TourismEntity>()
+    fun mapResponsesToEntities(input: List<FootballResponse>): List<FootballEntity> {
+        val tourismList = ArrayList<FootballEntity>()
         input.map {
-            val tourism = TourismEntity(
+            val tourism = FootballEntity(
                 tourismId = it.id,
                 description = it.description,
                 name = it.name,

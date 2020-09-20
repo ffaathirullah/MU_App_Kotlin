@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_detail_tourism.*
-import kotlinx.android.synthetic.main.content_detail_tourism.*
+import kotlinx.android.synthetic.main.activity_detail_football.*
+import kotlinx.android.synthetic.main.content_detail_football.*
 
-class DetailTourismActivity : AppCompatActivity() {
+class DetailFootballActivity : AppCompatActivity() {
 
-    private lateinit var detailTourismViewModel: DetailTourismViewModel
+    private lateinit var detaillFootballViewModel: DetaillFootballViewModel
 
     companion object {
         const val EXTRA_DATA = "extra_data"
@@ -18,21 +18,21 @@ class DetailTourismActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_tourism)
+        setContentView(R.layout.activity_detail_football)
         setSupportActionBar(toolbar)
 
         val factory = ViewModelFactory.getInstance(this)
-        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
+        detaillFootballViewModel = ViewModelProvider(this, factory)[DetaillFootballViewModel::class.java]
 
-        val detailTourism = intent.getParcelableExtra<TourismEntity>(EXTRA_DATA)
+        val detailTourism = intent.getParcelableExtra<FootballEntity>(EXTRA_DATA)
         showDetailTourism(detailTourism)
     }
 
-    private fun showDetailTourism(detailTourism: TourismEntity?) {
+    private fun showDetailTourism(detailTourism: FootballEntity?) {
         detailTourism?.let {
             supportActionBar?.title = detailTourism.name
             tv_detail_description.text = detailTourism.description
-            Glide.with(this@DetailTourismActivity)
+            Glide.with(this@DetailFootballActivity)
                 .load(detailTourism.image)
                 .into(text_detail_image)
 
@@ -40,7 +40,7 @@ class DetailTourismActivity : AppCompatActivity() {
             setStatusFavorite(statusFavorite)
             fab.setOnClickListener {
                 statusFavorite = !statusFavorite
-                detailTourismViewModel.setFavoriteTourism(detailTourism, statusFavorite)
+                detaillFootballViewModel.setFavoriteTourism(detailTourism, statusFavorite)
                 setStatusFavorite(statusFavorite)
             }
         }
@@ -48,9 +48,9 @@ class DetailTourismActivity : AppCompatActivity() {
 
     private fun setStatusFavorite(statusFavorite: Boolean) {
         if (statusFavorite) {
-            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white))
+            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_putih))
         } else {
-            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
+            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_bukan_favorite_white))
         }
     }
 }

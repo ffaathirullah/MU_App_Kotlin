@@ -8,11 +8,11 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(tableName = "tourism")
-data class TourismEntity(
+@Entity(tableName = "football")
+data class FootballEntity(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "tourismId")
+    @ColumnInfo(name = "footballId")
     var tourismId: String,
 
     @ColumnInfo(name = "name")

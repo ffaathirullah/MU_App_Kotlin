@@ -2,25 +2,25 @@ package org.d3if1008.dicodingexpert
 
 import androidx.lifecycle.LiveData
 
-class LocalDataSource private constructor(private val tourismDao: TourismDao) {
+class LocalDataSource private constructor(private val footballDao: FootballDao) {
 
     companion object {
         private var instance: LocalDataSource? = null
 
-        fun getInstance(tourismDao: TourismDao): LocalDataSource =
+        fun getInstance(tourismDao: FootballDao): LocalDataSource =
             instance ?: synchronized(this) {
                 instance ?: LocalDataSource(tourismDao)
             }
     }
 
-    fun getAllTourism(): LiveData<List<TourismEntity>> = tourismDao.getAllTourism()
+    fun getAllTourism(): LiveData<List<FootballEntity>> = footballDao.getAllTourism()
 
-    fun getFavoriteTourism(): LiveData<List<TourismEntity>> = tourismDao.getFavoriteTourism()
+    fun getFavoriteTourism(): LiveData<List<FootballEntity>> = footballDao.getFavoriteTourism()
 
-    fun insertTourism(tourismList: List<TourismEntity>) = tourismDao.insertTourism(tourismList)
+    fun insertTourism(tourismList: List<FootballEntity>) = footballDao.insertTourism(tourismList)
 
-    fun setFavoriteTourism(tourism: TourismEntity, newState: Boolean) {
+    fun setFavoriteTourism(tourism: FootballEntity, newState: Boolean) {
         tourism.isFavorite = newState
-        tourismDao.updateFavoriteTourism(tourism)
+        footballDao.updateFavoriteTourism(tourism)
     }
 }

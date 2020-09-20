@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class ViewModelFactory private constructor(private val tourismRepository: TourismRepository) :
+class ViewModelFactory private constructor(private val footballRepository: FootballRepository) :
     ViewModelProvider.NewInstanceFactory() {
 
     companion object {
@@ -27,13 +27,13 @@ class ViewModelFactory private constructor(private val tourismRepository: Touris
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         when {
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                HomeViewModel(tourismRepository) as T
+                HomeViewModel(footballRepository) as T
             }
             modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
-                FavoriteViewModel(tourismRepository) as T
+                FavoriteViewModel(footballRepository) as T
             }
-            modelClass.isAssignableFrom(DetailTourismViewModel::class.java) -> {
-                DetailTourismViewModel(tourismRepository) as T
+            modelClass.isAssignableFrom(DetaillFootballViewModel::class.java) -> {
+                DetaillFootballViewModel(footballRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

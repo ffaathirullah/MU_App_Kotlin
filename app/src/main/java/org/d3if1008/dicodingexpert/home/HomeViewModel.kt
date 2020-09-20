@@ -2,9 +2,9 @@ package org.d3if1008.dicodingexpert
 
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel(tourismRepository: TourismRepository) : ViewModel() {
+class HomeViewModel(footballRepository: FootballRepository) : ViewModel() {
 
-    val tourism = tourismRepository.getAllTourism()
+    val tourism = footballRepository.getAllTourism()
 
 }
 

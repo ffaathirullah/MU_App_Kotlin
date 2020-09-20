@@ -1,6 +1,6 @@
 package com.dicoding.tourismapp.core.data.source.remote.response
 
-data class TourismResponse(
+data class FootballResponse(
     val id: String,
     val name: String,
     val description: String,

@@ -1,7 +1,7 @@
 package org.d3if1008.dicodingexpert
 
 import android.content.Context
-import com.dicoding.tourismapp.core.data.source.remote.response.TourismResponse
+import com.dicoding.tourismapp.core.data.source.remote.response.FootballResponse
 import org.json.JSONObject
 import java.io.IOException
 
@@ -19,8 +19,8 @@ class JsonHelper(private val context: Context) {
         return jsonString
     }
 
-    fun loadData(): List<TourismResponse> {
-        val list = ArrayList<TourismResponse>()
+    fun loadData(): List<FootballResponse> {
+        val list = ArrayList<FootballResponse>()
         val responseObject = JSONObject(parsingFileToString().toString())
         val listArray = responseObject.getJSONArray("places")
         for (i in 0 until listArray.length()) {
@@ -35,7 +35,7 @@ class JsonHelper(private val context: Context) {
             val like = course.getInt("like")
             val image = course.getString("image")
 
-            val courseResponse = TourismResponse(
+            val courseResponse = FootballResponse(
                 id = id,
                 name = name,
                 description = description,

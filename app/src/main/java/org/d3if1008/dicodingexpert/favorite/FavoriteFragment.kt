@@ -28,10 +28,10 @@ class FavoriteFragment : Fragment() {
 
         if (activity != null) {
 
-            val tourismAdapter = TourismAdapter()
+            val tourismAdapter = FootballAdapter()
             tourismAdapter.onItemClick = { selectedData ->
-                val intent = Intent(activity, DetailTourismActivity::class.java)
-                intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
+                val intent = Intent(activity, DetailFootballActivity::class.java)
+                intent.putExtra(DetailFootballActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
 

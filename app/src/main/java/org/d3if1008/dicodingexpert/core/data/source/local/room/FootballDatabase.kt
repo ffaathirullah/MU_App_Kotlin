@@ -6,20 +6,20 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [TourismEntity::class], version = 1, exportSchema = false)
-abstract class TourismDatabase : RoomDatabase() {
+@Database(entities = [FootballEntity::class], version = 1, exportSchema = false)
+abstract class FootballDatabase : RoomDatabase() {
 
-    abstract fun tourismDao(): TourismDao
+    abstract fun footballDao(): FootballDao
 
     companion object {
         @Volatile
-        private var INSTANCE: TourismDatabase? = null
+        private var INSTANCE: FootballDatabase? = null
 
-        fun getInstance(context: Context): TourismDatabase =
+        fun getInstance(context: Context): FootballDatabase =
             INSTANCE ?: synchronized(this) {
             val instance = Room.databaseBuilder(
                 context.applicationContext,
-                TourismDatabase::class.java,
+                FootballDatabase::class.java,
                 "Tourism.db"
             )
                 .fallbackToDestructiveMigration()
