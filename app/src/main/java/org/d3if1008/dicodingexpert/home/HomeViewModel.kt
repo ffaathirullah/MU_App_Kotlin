@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class HomeViewModel(footballRepository: FootballRepository) : ViewModel() {
 
-    val tourism = footballRepository.getAllTourism()
+    val tourism = footballRepository.getAllFootball()
 
 }
 

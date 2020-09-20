@@ -1,13 +1,16 @@
 package org.d3if1008.dicodingexpert
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.dicoding.tourismapp.core.data.source.remote.response.FootballResponse
+import org.d3if1008.dicodingexpert.domain.model.Football
+import org.d3if1008.dicodingexpert.domain.repository.IFootballRepository
 
 class FootballRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
-) {
+): IFootballRepository {
 
     companion object {
         @Volatile
@@ -23,13 +26,15 @@ class FootballRepository private constructor(
             }
     }
 
-    fun getAllTourism(): LiveData<Resource<List<FootballEntity>>> =
-        object : NetworkBoundResource<List<FootballEntity>, List<FootballResponse>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<FootballEntity>> {
-                return localDataSource.getAllTourism()
+    override fun getAllFootball(): LiveData<Resource<List<Football>>> =
+        object : NetworkBoundResource<List<Football>, List<FootballResponse>>(appExecutors) {
+            override fun loadFromDB(): LiveData<List<Football>> {
+                return Transformations.map(localDataSource.getAllTourism()) {
+                    DataMapper.mapEntitiesToDomain(it)
+                }
             }
 
-            override fun shouldFetch(data: List<FootballEntity>?): Boolean =
+            override fun shouldFetch(data: List<Football>?): Boolean =
                 data == null || data.isEmpty()
 
             override fun createCall(): LiveData<ApiResponse<List<FootballResponse>>> =
@@ -41,12 +46,15 @@ class FootballRepository private constructor(
             }
         }.asLiveData()
 
-    fun getFavoriteTourism(): LiveData<List<FootballEntity>> {
-        return localDataSource.getFavoriteTourism()
+    override fun getFavoriteFootball(): LiveData<List<Football>> {
+        return Transformations.map(localDataSource.getFavoriteTourism()) {
+            DataMapper.mapEntitiesToDomain(it)
+        }
     }
 
-    fun setFavoriteTourism(tourism: FootballEntity, state: Boolean) {
-        appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourism, state) }
+    override fun setFavoriteFootball(tourism: Football, state: Boolean) {
+        val tourismEntity = DataMapper.mapDomainToEntity(tourism)
+        appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourismEntity, state) }
     }
 }
 

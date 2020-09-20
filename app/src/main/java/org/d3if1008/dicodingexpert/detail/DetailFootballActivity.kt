@@ -7,10 +7,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_detail_football.*
 import kotlinx.android.synthetic.main.content_detail_football.*
+import org.d3if1008.dicodingexpert.domain.model.Football
 
 class DetailFootballActivity : AppCompatActivity() {
 
-    private lateinit var detaillFootballViewModel: DetaillFootballViewModel
+    private lateinit var detaillFootballViewModel: DetailFootballViewModel
 
     companion object {
         const val EXTRA_DATA = "extra_data"
@@ -22,25 +23,25 @@ class DetailFootballActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val factory = ViewModelFactory.getInstance(this)
-        detaillFootballViewModel = ViewModelProvider(this, factory)[DetaillFootballViewModel::class.java]
+        detaillFootballViewModel = ViewModelProvider(this, factory)[DetailFootballViewModel::class.java]
 
-        val detailTourism = intent.getParcelableExtra<FootballEntity>(EXTRA_DATA)
-        showDetailTourism(detailTourism)
+        val detailFootball = intent.getParcelableExtra<Football>(EXTRA_DATA)
+        showDetailTourism(detailFootball)
     }
 
-    private fun showDetailTourism(detailTourism: FootballEntity?) {
-        detailTourism?.let {
-            supportActionBar?.title = detailTourism.name
-            tv_detail_description.text = detailTourism.description
+    private fun showDetailTourism(detailFootball: Football?) {
+        detailFootball?.let {
+            supportActionBar?.title = detailFootball.name
+            tv_detail_description.text = detailFootball.description
             Glide.with(this@DetailFootballActivity)
-                .load(detailTourism.image)
+                .load(detailFootball.image)
                 .into(text_detail_image)
 
-            var statusFavorite = detailTourism.isFavorite
+            var statusFavorite = detailFootball.isFavorite
             setStatusFavorite(statusFavorite)
             fab.setOnClickListener {
                 statusFavorite = !statusFavorite
-                detaillFootballViewModel.setFavoriteTourism(detailTourism, statusFavorite)
+                detaillFootballViewModel.setFavoriteFootball(detailFootball, statusFavorite)
                 setStatusFavorite(statusFavorite)
             }
         }

@@ -6,14 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_list_football.view.*
+import org.d3if1008.dicodingexpert.domain.model.Football
 import java.util.ArrayList
 
 class FootballAdapter : RecyclerView.Adapter<FootballAdapter.ListViewHolder>() {
 
-    private var listData = ArrayList<FootballEntity>()
-    var onItemClick: ((FootballEntity) -> Unit)? = null
+    private var listData = ArrayList<Football>()
+    var onItemClick: ((Football) -> Unit)? = null
 
-    fun setData(newListData: List<FootballEntity>?) {
+    fun setData(newListData: List<Football>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -31,7 +32,7 @@ class FootballAdapter : RecyclerView.Adapter<FootballAdapter.ListViewHolder>() {
     }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(data: FootballEntity) {
+        fun bind(data: Football) {
             with(itemView) {
                 Glide.with(itemView.context)
                     .load(data.image)

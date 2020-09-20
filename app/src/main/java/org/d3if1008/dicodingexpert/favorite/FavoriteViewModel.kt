@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class FavoriteViewModel(footballRepository: FootballRepository) : ViewModel() {
 
-    val favoriteTourism = footballRepository.getFavoriteTourism()
+    val favoriteTourism = footballRepository.getFavoriteFootball()
 
 }
 
