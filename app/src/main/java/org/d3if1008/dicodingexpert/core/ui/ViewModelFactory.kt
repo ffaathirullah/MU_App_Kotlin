@@ -3,8 +3,9 @@ package org.d3if1008.dicodingexpert
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import org.d3if1008.dicodingexpert.domain.usecase.FootballUseCase
 
-class ViewModelFactory private constructor(private val footballRepository: FootballRepository) :
+class ViewModelFactory private constructor(private val footballUsecase: FootballUseCase) :
     ViewModelProvider.NewInstanceFactory() {
 
     companion object {
@@ -12,14 +13,8 @@ class ViewModelFactory private constructor(private val footballRepository: Footb
         private var instance: ViewModelFactory? = null
 
         fun getInstance(context: Context): ViewModelFactory =
-            instance
-                ?: synchronized(this) {
-                instance
-                    ?: ViewModelFactory(
-                        Injection.provideRepository(
-                            context
-                        )
-                    )
+            instance ?: synchronized(this) {
+                instance ?: ViewModelFactory(Injection.provideFootballUseCase(context))
             }
     }
 
@@ -27,13 +22,13 @@ class ViewModelFactory private constructor(private val footballRepository: Footb
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         when {
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                HomeViewModel(footballRepository) as T
+                HomeViewModel(footballUsecase) as T
             }
             modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
-                FavoriteViewModel(footballRepository) as T
+                FavoriteViewModel(footballUsecase) as T
             }
-            modelClass.isAssignableFrom(DetaillFootballViewModel::class.java) -> {
-                DetaillFootballViewModel(footballRepository) as T
+            modelClass.isAssignableFrom(DetailFootballViewModel::class.java) -> {
+                DetailFootballViewModel(footballUsecase) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
