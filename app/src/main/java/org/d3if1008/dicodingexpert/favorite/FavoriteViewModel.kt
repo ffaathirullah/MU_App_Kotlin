@@ -1,10 +1,11 @@
 package org.d3if1008.dicodingexpert
 
 import androidx.lifecycle.ViewModel
+import org.d3if1008.dicodingexpert.domain.usecase.FootballUseCase
 
-class FavoriteViewModel(footballRepository: FootballRepository) : ViewModel() {
+class FavoriteViewModel(footballUsecase: FootballUseCase) : ViewModel() {
 
-    val favoriteTourism = footballRepository.getFavoriteFootball()
+    val favoriteTourism = footballUsecase.getFavoriteFootball()
 
 }
 
