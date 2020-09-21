@@ -1,8 +1,8 @@
 package org.d3if1008.dicodingexpert
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.dicoding.tourismapp.core.data.source.remote.response.FootballResponse
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import org.d3if1008.dicodingexpert.domain.model.Football
 import org.d3if1008.dicodingexpert.domain.repository.IFootballRepository
 
@@ -26,30 +26,27 @@ class FootballRepository private constructor(
             }
     }
 
-    override fun getAllFootball(): LiveData<Resource<List<Football>>> =
-        object : NetworkBoundResource<List<Football>, List<FootballResponse>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<Football>> {
-                return Transformations.map(localDataSource.getAllFootball()) {
-                    DataMapper.mapEntitiesToDomain(it)
-                }
+    override fun getAllFootball(): Flow<org.d3if1008.dicodingexpert.Resource<List<Football>>> =
+        object : NetworkBoundResource<List<Football>, List<FootballResponse>>() {
+            override fun loadFromDB(): Flow<List<Football>> {
+                return localDataSource.getAllFootball().map { DataMapper.mapEntitiesToDomain(it) }
             }
 
             override fun shouldFetch(data: List<Football>?): Boolean =
                 data == null || data.isEmpty()
 
-            override fun createCall(): LiveData<ApiResponse<List<FootballResponse>>> =
+            override suspend fun createCall(): Flow<ApiResponse<List<FootballResponse>>> =
                 remoteDataSource.getAllFootball()
 
-            override fun saveCallResult(data: List<FootballResponse>) {
-                val tourismList = DataMapper.mapResponsesToEntities(data)
-                localDataSource.insertFootball(tourismList)
+            override suspend fun saveCallResult(data: List<FootballResponse>) {
+                val footballList = DataMapper.mapResponsesToEntities(data)
+                localDataSource.insertFootball(footballList)
             }
-        }.asLiveData()
+    }.asFlow()
 
-    override fun getFavoriteFootball(): LiveData<List<Football>> {
-        return Transformations.map(localDataSource.getFavoriteFootball()) {
-            DataMapper.mapEntitiesToDomain(it)
-        }
+    override fun getFavoriteFootball(): Flow<List<Football>> {
+        return localDataSource.getFavoriteFootball().map { DataMapper.mapEntitiesToDomain(it) }
+
     }
 
     override fun setFavoriteFootball(tourism: Football, state: Boolean) {

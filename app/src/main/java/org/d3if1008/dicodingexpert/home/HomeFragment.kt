@@ -38,18 +38,18 @@ class HomeFragment : Fragment() {
             val factory = ViewModelFactory.getInstance(requireActivity())
             homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
-            homeViewModel.tourism.observe(viewLifecycleOwner, Observer { tourism ->
-                if (tourism != null) {
-                    when (tourism) {
+            homeViewModel.football.observe(viewLifecycleOwner, Observer { football ->
+                if (football != null) {
+                    when (football) {
                         is Resource.Loading -> progress_bar.visibility = View.VISIBLE
                         is Resource.Success -> {
                             progress_bar.visibility = View.GONE
-                            tourismAdapter.setData(tourism.data)
+                            tourismAdapter.setData(football.data)
                         }
                         is Resource.Error -> {
                             progress_bar.visibility = View.GONE
                             view_error.visibility = View.VISIBLE
-                            tv_error.text = tourism.message ?: getString(R.string.something_wrong)
+                            tv_error.text = football.message ?: getString(R.string.something_wrong)
                         }
                     }
                 }

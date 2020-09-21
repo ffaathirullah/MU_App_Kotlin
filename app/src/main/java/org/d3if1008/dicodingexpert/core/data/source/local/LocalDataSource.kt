@@ -1,6 +1,6 @@
 package org.d3if1008.dicodingexpert
 
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 
 class LocalDataSource private constructor(private val footballDao: FootballDao) {
 
@@ -13,14 +13,14 @@ class LocalDataSource private constructor(private val footballDao: FootballDao) 
             }
     }
 
-    fun getAllFootball(): LiveData<List<FootballEntity>> = footballDao.getAllFootball()
+    fun getAllFootball(): Flow<List<FootballEntity>> = footballDao.getAllFootball()
 
-    fun getFavoriteFootball(): LiveData<List<FootballEntity>> = footballDao.getFavoriteTourism()
+    fun getFavoriteFootball(): Flow<List<FootballEntity>> = footballDao.getFavoriteFootball()
 
-    fun insertFootball(footballList: List<FootballEntity>) = footballDao.insertFootball(footballList)
+    suspend fun insertFootball(tourismList: List<FootballEntity>) = footballDao.insertTourism(tourismList)
 
-    fun setFavoriteFootball(football: FootballEntity, newState: Boolean) {
-        football.isFavorite = newState
-        footballDao.updateFavoriteFootball(football)
+    fun setFavoriteFootball(tourism: FootballEntity, newState: Boolean) {
+        tourism.isFavorite = newState
+        footballDao.updateFavoriteFootball(tourism)
     }
 }
