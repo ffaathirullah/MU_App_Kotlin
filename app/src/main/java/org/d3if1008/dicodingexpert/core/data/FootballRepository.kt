@@ -38,7 +38,7 @@ class FootballRepository private constructor(
                 data == null || data.isEmpty()
 
             override fun createCall(): LiveData<ApiResponse<List<FootballResponse>>> =
-                remoteDataSource.getAllTourism()
+                remoteDataSource.getAllFootball()
 
             override fun saveCallResult(data: List<FootballResponse>) {
                 val tourismList = DataMapper.mapResponsesToEntities(data)

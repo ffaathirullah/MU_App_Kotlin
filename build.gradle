@@ -21,6 +21,8 @@ buildscript {
     ext.logging_interceptor_version = "4.8.0"
     ext.room_version = "2.2.5"
 
+    ext.kotlin_coroutines_version = "1.3.6"
+    ext.lifecycle_version = "2.2.0"
     repositories {
         google()
         jcenter()
