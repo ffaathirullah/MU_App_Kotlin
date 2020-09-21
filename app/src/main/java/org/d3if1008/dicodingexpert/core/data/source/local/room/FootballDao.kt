@@ -2,19 +2,21 @@ package org.d3if1008.dicodingexpert
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import java.util.concurrent.Flow
 
 @Dao
 interface FootballDao {
 
     @Query("SELECT * FROM football")
-    fun getAllTourism(): LiveData<List<FootballEntity>>
+    fun getAllFootball(): LiveData<List<FootballEntity>>
 
     @Query("SELECT * FROM football where isFavorite = 1")
     fun getFavoriteTourism(): LiveData<List<FootballEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTourism(tourism: List<FootballEntity>)
+    fun insertFootball(tourism: List<FootballEntity>)
 
     @Update
-    fun updateFavoriteTourism(tourism: FootballEntity)
+    fun updateFavoriteFootball(football: FootballEntity)
+
 }

@@ -8,7 +8,7 @@ object DataMapper {
         val tourismList = ArrayList<FootballEntity>()
         input.map {
             val tourism = FootballEntity(
-                tourismId = it.id,
+                footballId = it.id,
                 description = it.description,
                 name = it.name,
                 address = it.address,
@@ -22,10 +22,11 @@ object DataMapper {
         }
         return tourismList
     }
+
     fun mapEntitiesToDomain(input: List<FootballEntity>): List<Football> =
         input.map {
             Football(
-                footballId  = it.tourismId,
+                footballId = it.footballId,
                 description = it.description,
                 name = it.name,
                 address = it.address,
@@ -36,8 +37,9 @@ object DataMapper {
                 isFavorite = it.isFavorite
             )
         }
+
     fun mapDomainToEntity(input: Football) = FootballEntity(
-        tourismId = input.footballId,
+        footballId  = input.footballId,
         description = input.description,
         name = input.name,
         address = input.address,

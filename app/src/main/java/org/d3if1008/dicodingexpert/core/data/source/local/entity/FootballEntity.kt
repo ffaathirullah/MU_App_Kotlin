@@ -12,8 +12,8 @@ import kotlinx.android.parcel.Parcelize
 data class FootballEntity(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "footballId")
-    var tourismId: String,
+    @ColumnInfo(name = "tourismId")
+    var footballId: String,
 
     @ColumnInfo(name = "name")
     var name: String,
@@ -38,4 +38,5 @@ data class FootballEntity(
 
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = false
+
 ) : Parcelable

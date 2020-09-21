@@ -29,7 +29,7 @@ class FootballRepository private constructor(
     override fun getAllFootball(): LiveData<Resource<List<Football>>> =
         object : NetworkBoundResource<List<Football>, List<FootballResponse>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<Football>> {
-                return Transformations.map(localDataSource.getAllTourism()) {
+                return Transformations.map(localDataSource.getAllFootball()) {
                     DataMapper.mapEntitiesToDomain(it)
                 }
             }
@@ -42,19 +42,19 @@ class FootballRepository private constructor(
 
             override fun saveCallResult(data: List<FootballResponse>) {
                 val tourismList = DataMapper.mapResponsesToEntities(data)
-                localDataSource.insertTourism(tourismList)
+                localDataSource.insertFootball(tourismList)
             }
         }.asLiveData()
 
     override fun getFavoriteFootball(): LiveData<List<Football>> {
-        return Transformations.map(localDataSource.getFavoriteTourism()) {
+        return Transformations.map(localDataSource.getFavoriteFootball()) {
             DataMapper.mapEntitiesToDomain(it)
         }
     }
 
     override fun setFavoriteFootball(tourism: Football, state: Boolean) {
         val tourismEntity = DataMapper.mapDomainToEntity(tourism)
-        appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(tourismEntity, state) }
+        appExecutors.diskIO().execute { localDataSource.setFavoriteFootball(tourismEntity, state) }
     }
 }
 

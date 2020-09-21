@@ -38,7 +38,6 @@ class FootballAdapter : RecyclerView.Adapter<FootballAdapter.ListViewHolder>() {
                     .load(data.image)
                     .into(iv_item_image)
                 tv_item_title.text = data.name
-                tv_item_subtitle.text = data.address
             }
         }
 

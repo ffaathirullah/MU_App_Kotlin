@@ -13,14 +13,14 @@ class LocalDataSource private constructor(private val footballDao: FootballDao) 
             }
     }
 
-    fun getAllTourism(): LiveData<List<FootballEntity>> = footballDao.getAllTourism()
+    fun getAllFootball(): LiveData<List<FootballEntity>> = footballDao.getAllFootball()
 
-    fun getFavoriteTourism(): LiveData<List<FootballEntity>> = footballDao.getFavoriteTourism()
+    fun getFavoriteFootball(): LiveData<List<FootballEntity>> = footballDao.getFavoriteTourism()
 
-    fun insertTourism(tourismList: List<FootballEntity>) = footballDao.insertTourism(tourismList)
+    fun insertFootball(footballList: List<FootballEntity>) = footballDao.insertFootball(footballList)
 
-    fun setFavoriteTourism(tourism: FootballEntity, newState: Boolean) {
-        tourism.isFavorite = newState
-        footballDao.updateFavoriteTourism(tourism)
+    fun setFavoriteFootball(football: FootballEntity, newState: Boolean) {
+        football.isFavorite = newState
+        footballDao.updateFavoriteFootball(football)
     }
 }
