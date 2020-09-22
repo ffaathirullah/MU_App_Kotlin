@@ -1,7 +1,7 @@
 package org.d3if1008.dicodingexpert.di
 
 import dagger.Component
-import org.d3if1008.dicodingexpert.core.di.CoreComponent
+import org.d3if1008.core.di.CoreComponent
 import org.d3if1008.dicodingexpert.detail.DetailFootballActivity
 import org.d3if1008.dicodingexpert.favorite.FavoriteFragment
 import org.d3if1008.dicodingexpert.home.HomeFragment

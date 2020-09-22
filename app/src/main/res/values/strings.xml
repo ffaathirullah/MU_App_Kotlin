@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Football App</string>
-    <string name="descriptionImage">Image</string>
-    <string name="primary_txt">Sample of title text</string>
-    <string name="subtitle_txt">Sample of subtitle text</string>
     <string name="drawer_open">Buka navigation drawer</string>
     <string name="drawer_close">Tutup navigation drawer</string>
     <string name="title_activity_detail_home">DetailHomeActivity</string>

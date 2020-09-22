@@ -1,8 +1,8 @@
 package org.d3if1008.dicodingexpert
 
 import android.app.Application
-import org.d3if1008.dicodingexpert.core.di.CoreComponent
-import org.d3if1008.dicodingexpert.core.di.DaggerCoreComponent
+import org.d3if1008.core.di.CoreComponent
+import org.d3if1008.core.di.DaggerCoreComponent
 import org.d3if1008.dicodingexpert.di.AppComponent
 import org.d3if1008.dicodingexpert.di.DaggerAppComponent
 

@@ -11,12 +11,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_favorite.*
+import org.d3if1008.core.ui.FootballAdapter
 import org.d3if1008.dicodingexpert.MyApplication
 import org.d3if1008.dicodingexpert.R
-import org.d3if1008.dicodingexpert.core.ui.FootballAdapter
-import org.d3if1008.dicodingexpert.core.ui.ViewModelFactory
 import org.d3if1008.dicodingexpert.detail.DetailFootballActivity
+import org.d3if1008.dicodingexpert.di.ViewModelFactory
 import javax.inject.Inject
+
 
 class FavoriteFragment : Fragment() {
 

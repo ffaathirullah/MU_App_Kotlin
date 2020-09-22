@@ -12,12 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.view_error.*
+import org.d3if1008.core.di.data.Resource
+import org.d3if1008.core.ui.FootballAdapter
 import org.d3if1008.dicodingexpert.MyApplication
 import org.d3if1008.dicodingexpert.R
-import org.d3if1008.dicodingexpert.core.data.Resource
-import org.d3if1008.dicodingexpert.core.ui.FootballAdapter
-import org.d3if1008.dicodingexpert.core.ui.ViewModelFactory
 import org.d3if1008.dicodingexpert.detail.DetailFootballActivity
+import org.d3if1008.dicodingexpert.di.ViewModelFactory
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
