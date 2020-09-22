@@ -1,4 +1,4 @@
-package com.dicoding.tourismapp.core.data.source.remote.response
+package org.d3if1008.dicodingexpert.core.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 

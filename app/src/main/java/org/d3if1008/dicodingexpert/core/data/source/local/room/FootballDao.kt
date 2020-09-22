@@ -1,7 +1,8 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.core.data.source.local.room
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
+import org.d3if1008.dicodingexpert.core.data.source.local.entity.FootballEntity
 
 @Dao
 interface FootballDao {
@@ -13,9 +14,9 @@ interface FootballDao {
     fun getFavoriteFootball(): Flow<List<FootballEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTourism(tourism: List<FootballEntity>)
+    suspend fun insertFootball(football: List<FootballEntity>)
 
     @Update
-    fun updateFavoriteFootball(tourism: FootballEntity)
+    fun updateFavoriteFootball(football: FootballEntity)
 
 }

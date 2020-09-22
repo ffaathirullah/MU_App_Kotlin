@@ -1,6 +1,7 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.core.data
 
 import kotlinx.coroutines.flow.*
+import org.d3if1008.dicodingexpert.core.data.source.remote.network.ApiResponse
 
 abstract class NetworkBoundResource<ResultType, RequestType>() {
 

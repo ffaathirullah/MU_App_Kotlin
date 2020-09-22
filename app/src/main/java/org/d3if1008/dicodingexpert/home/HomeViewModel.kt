@@ -1,4 +1,4 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

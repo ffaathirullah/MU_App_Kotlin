@@ -1,32 +1,26 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.core.data
 
-import com.dicoding.tourismapp.core.data.source.remote.response.FootballResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.d3if1008.dicodingexpert.core.data.source.local.LocalDataSource
+import org.d3if1008.dicodingexpert.core.data.source.remote.RemoteDataSource
+import org.d3if1008.dicodingexpert.core.data.source.remote.network.ApiResponse
+import org.d3if1008.dicodingexpert.core.data.source.remote.response.FootballResponse
+import org.d3if1008.dicodingexpert.core.utils.AppExecutors
+import org.d3if1008.dicodingexpert.core.utils.DataMapper
 import org.d3if1008.dicodingexpert.domain.model.Football
 import org.d3if1008.dicodingexpert.domain.repository.IFootballRepository
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class FootballRepository private constructor(
+@Singleton
+class FootballRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ): IFootballRepository {
 
-    companion object {
-        @Volatile
-        private var instance: FootballRepository? = null
-
-        fun getInstance(
-            remoteData: RemoteDataSource,
-            localData: LocalDataSource,
-            appExecutors: AppExecutors
-        ): FootballRepository =
-            instance ?: synchronized(this) {
-                instance ?: FootballRepository(remoteData, localData, appExecutors)
-            }
-    }
-
-    override fun getAllFootball(): Flow<org.d3if1008.dicodingexpert.Resource<List<Football>>> =
+    override fun getAllFootball(): Flow<Resource<List<Football>>> =
         object : NetworkBoundResource<List<Football>, List<FootballResponse>>() {
             override fun loadFromDB(): Flow<List<Football>> {
                 return localDataSource.getAllFootball().map { DataMapper.mapEntitiesToDomain(it) }
@@ -49,8 +43,8 @@ class FootballRepository private constructor(
 
     }
 
-    override fun setFavoriteFootball(tourism: Football, state: Boolean) {
-        val tourismEntity = DataMapper.mapDomainToEntity(tourism)
+    override fun setFavoriteFootball(football: Football, state: Boolean) {
+        val tourismEntity = DataMapper.mapDomainToEntity(football)
         appExecutors.diskIO().execute { localDataSource.setFavoriteFootball(tourismEntity, state) }
     }
 }

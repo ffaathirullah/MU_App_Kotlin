@@ -1,4 +1,4 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.core.utils
 
 import android.os.Handler
 import android.os.Looper
@@ -6,6 +6,7 @@ import androidx.annotation.VisibleForTesting
 
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
+import javax.inject.Inject
 
 class AppExecutors @VisibleForTesting constructor(
     private val diskIO: Executor,
@@ -17,6 +18,7 @@ class AppExecutors @VisibleForTesting constructor(
         private const val THREAD_COUNT = 3
     }
 
+    @Inject
     constructor() : this(
         Executors.newSingleThreadExecutor(),
         Executors.newFixedThreadPool(THREAD_COUNT),
@@ -24,10 +26,6 @@ class AppExecutors @VisibleForTesting constructor(
     )
 
     fun diskIO(): Executor = diskIO
-
-    fun networkIO(): Executor = networkIO
-
-    fun mainThread(): Executor = mainThread
 
     private class MainThreadExecutor : Executor {
         private val mainThreadHandler = Handler(Looper.getMainLooper())

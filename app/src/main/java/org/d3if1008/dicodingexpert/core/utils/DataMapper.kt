@@ -1,13 +1,14 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.core.utils
 
-import com.dicoding.tourismapp.core.data.source.remote.response.FootballResponse
+import org.d3if1008.dicodingexpert.core.data.source.local.entity.FootballEntity
+import org.d3if1008.dicodingexpert.core.data.source.remote.response.FootballResponse
 import org.d3if1008.dicodingexpert.domain.model.Football
 
 object DataMapper {
     fun mapResponsesToEntities(input: List<FootballResponse>): List<FootballEntity> {
-        val tourismList = ArrayList<FootballEntity>()
+        val footballList = ArrayList<FootballEntity>()
         input.map {
-            val tourism = FootballEntity(
+            val football = FootballEntity(
                 footballId = it.id,
                 description = it.description,
                 name = it.name,
@@ -18,9 +19,9 @@ object DataMapper {
                 image = it.image,
                 isFavorite = false
             )
-            tourismList.add(tourism)
+            footballList.add(football)
         }
-        return tourismList
+        return footballList
     }
 
     fun mapEntitiesToDomain(input: List<FootballEntity>): List<Football> =

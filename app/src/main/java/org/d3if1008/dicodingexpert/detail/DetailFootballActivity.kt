@@ -1,41 +1,49 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.detail
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_detail_football.*
 import kotlinx.android.synthetic.main.content_detail_football.*
+import org.d3if1008.dicodingexpert.MyApplication
+import org.d3if1008.dicodingexpert.R
+import org.d3if1008.dicodingexpert.core.ui.ViewModelFactory
 import org.d3if1008.dicodingexpert.domain.model.Football
+import javax.inject.Inject
 
 class DetailFootballActivity : AppCompatActivity() {
 
-    private lateinit var detaillFootballViewModel: DetailFootballViewModel
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    private val detaillFootballViewModel: DetailFootballViewModel by viewModels {
+        factory
+    }
 
     companion object {
         const val EXTRA_DATA = "extra_data"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_football)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(tollbar)
 
-        val factory = ViewModelFactory.getInstance(this)
-        detaillFootballViewModel = ViewModelProvider(this, factory)[DetailFootballViewModel::class.java]
 
         val detailFootball = intent.getParcelableExtra<Football>(EXTRA_DATA)
-        showDetailTourism(detailFootball)
+        showDetailFootball(detailFootball)
     }
 
-    private fun showDetailTourism(detailFootball: Football?) {
+    private fun showDetailFootball(detailFootball: Football?) {
         detailFootball?.let {
             supportActionBar?.title = detailFootball.name
-            tv_detail_description.text = detailFootball.description
+            detail_description.text = detailFootball.description
             Glide.with(this@DetailFootballActivity)
                 .load(detailFootball.image)
-                .into(text_detail_image)
+                .into(background)
 
             var statusFavorite = detailFootball.isFavorite
             setStatusFavorite(statusFavorite)

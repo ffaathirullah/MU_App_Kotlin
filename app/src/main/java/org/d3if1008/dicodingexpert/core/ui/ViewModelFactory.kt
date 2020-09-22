@@ -1,22 +1,18 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.core.ui
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import org.d3if1008.dicodingexpert.detail.DetailFootballViewModel
+import org.d3if1008.dicodingexpert.di.AppScope
 import org.d3if1008.dicodingexpert.domain.usecase.FootballUseCase
+import org.d3if1008.dicodingexpert.favorite.FavoriteViewModel
+import org.d3if1008.dicodingexpert.home.HomeViewModel
+import javax.inject.Inject
 
-class ViewModelFactory private constructor(private val footballUsecase: FootballUseCase) :
+@AppScope
+class ViewModelFactory @Inject constructor(private val footballUsecase: FootballUseCase) :
     ViewModelProvider.NewInstanceFactory() {
 
-    companion object {
-        @Volatile
-        private var instance: ViewModelFactory? = null
-
-        fun getInstance(context: Context): ViewModelFactory =
-            instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideFootballUseCase(context))
-            }
-    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
@@ -30,6 +26,6 @@ class ViewModelFactory private constructor(private val footballUsecase: Football
             modelClass.isAssignableFrom(DetailFootballViewModel::class.java) -> {
                 DetailFootballViewModel(footballUsecase) as T
             }
-            else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
+            else -> throw Throwable("ViewModel class: " + modelClass.name)
         }
 }

@@ -1,20 +1,38 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.view_error.*
+import org.d3if1008.dicodingexpert.MyApplication
+import org.d3if1008.dicodingexpert.R
+import org.d3if1008.dicodingexpert.core.data.Resource
+import org.d3if1008.dicodingexpert.core.ui.FootballAdapter
+import org.d3if1008.dicodingexpert.core.ui.ViewModelFactory
+import org.d3if1008.dicodingexpert.detail.DetailFootballActivity
+import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    private val homeViewModel: HomeViewModel by viewModels {
+        factory
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,15 +46,12 @@ class HomeFragment : Fragment() {
 
         if (activity != null) {
 
-            val tourismAdapter = FootballAdapter()
-            tourismAdapter.onItemClick = { selectedData ->
+            val footballdapter = FootballAdapter()
+            footballdapter.onItemClick = { selectedData ->
                 val intent = Intent(activity, DetailFootballActivity::class.java)
                 intent.putExtra(DetailFootballActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
-
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
             homeViewModel.football.observe(viewLifecycleOwner, Observer { football ->
                 if (football != null) {
@@ -44,21 +59,21 @@ class HomeFragment : Fragment() {
                         is Resource.Loading -> progress_bar.visibility = View.VISIBLE
                         is Resource.Success -> {
                             progress_bar.visibility = View.GONE
-                            tourismAdapter.setData(football.data)
+                            footballdapter.setData(football.data)
                         }
                         is Resource.Error -> {
                             progress_bar.visibility = View.GONE
-                            view_error.visibility = View.VISIBLE
-                            tv_error.text = football.message ?: getString(R.string.something_wrong)
+                            error_view.visibility = View.VISIBLE
+                            tv_error.text = football.message ?: getString(R.string.error)
                         }
                     }
                 }
             })
 
-            with(rv_tourism) {
+            with(tourism) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
-                adapter = tourismAdapter
+                adapter = footballdapter
             }
         }
     }

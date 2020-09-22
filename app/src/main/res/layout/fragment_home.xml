@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_tourism"
+        android:id="@+id/tourism"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_list_football" />
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/view_error"
+        android:id="@+id/error_view"
         layout="@layout/view_error"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

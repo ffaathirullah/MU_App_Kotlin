@@ -1,24 +1,18 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.core.data.source.remote
 
 import android.util.Log
-import com.dicoding.tourismapp.core.data.source.remote.response.FootballResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import org.d3if1008.dicodingexpert.core.data.source.remote.network.ApiResponse
 import org.d3if1008.dicodingexpert.core.data.source.remote.network.ApiService
+import org.d3if1008.dicodingexpert.core.data.source.remote.response.FootballResponse
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class RemoteDataSource private constructor(private val apiService: ApiService) {
-    companion object {
-        @Volatile
-        private var instance: RemoteDataSource? = null
-
-        fun getInstance(service: ApiService): RemoteDataSource =
-            instance ?: synchronized(this) {
-                instance ?: RemoteDataSource(service)
-            }
-    }
+@Singleton
+class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     suspend fun getAllFootball(): Flow<ApiResponse<List<FootballResponse>>> {
         return flow {

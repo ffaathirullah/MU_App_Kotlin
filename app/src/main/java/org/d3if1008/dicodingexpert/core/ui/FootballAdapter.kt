@@ -1,4 +1,4 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.core.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_list_football.view.*
+import org.d3if1008.dicodingexpert.R
 import org.d3if1008.dicodingexpert.domain.model.Football
 import java.util.ArrayList
 
@@ -36,8 +37,8 @@ class FootballAdapter : RecyclerView.Adapter<FootballAdapter.ListViewHolder>() {
             with(itemView) {
                 Glide.with(itemView.context)
                     .load(data.image)
-                    .into(iv_item_image)
-                tv_item_title.text = data.name
+                    .into(item_image)
+                item_title.text = data.name
             }
         }
 

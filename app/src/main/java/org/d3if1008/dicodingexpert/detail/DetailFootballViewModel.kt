@@ -1,4 +1,4 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.detail
 
 import androidx.lifecycle.ViewModel
 import org.d3if1008.dicodingexpert.domain.model.Football

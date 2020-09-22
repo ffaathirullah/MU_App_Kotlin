@@ -1,4 +1,4 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.core.data
 
 sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     class Success<T>(data: T) : Resource<T>(data)

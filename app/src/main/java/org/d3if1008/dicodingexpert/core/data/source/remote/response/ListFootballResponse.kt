@@ -1,6 +1,5 @@
 package org.d3if1008.dicodingexpert.core.data.source.remote.response
 
-import com.dicoding.tourismapp.core.data.source.remote.response.FootballResponse
 import com.google.gson.annotations.SerializedName
 
 data class ListFootballResponse(

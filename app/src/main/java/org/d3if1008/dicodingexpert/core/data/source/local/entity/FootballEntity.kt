@@ -1,4 +1,4 @@
-package org.d3if1008.dicodingexpert
+package org.d3if1008.dicodingexpert.core.data.source.local.entity
 
 import android.os.Parcelable
 import androidx.annotation.NonNull
@@ -12,7 +12,7 @@ import kotlinx.android.parcel.Parcelize
 data class FootballEntity(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "tourismId")
+    @ColumnInfo(name = "footballId")
     var footballId: String,
 
     @ColumnInfo(name = "name")
