@@ -1,7 +1,7 @@
-package org.d3if1008.core.di.data
+package org.d3if1008.core.data
 
 import kotlinx.coroutines.flow.*
-import org.d3if1008.core.di.data.source.remote.network.ApiResponse
+import org.d3if1008.core.data.source.remote.network.ApiResponse
 
 abstract class NetworkBoundResource<ResultType, RequestType>() {
 

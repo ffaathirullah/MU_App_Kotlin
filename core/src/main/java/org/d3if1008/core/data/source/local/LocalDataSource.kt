@@ -1,13 +1,11 @@
-package org.d3if1008.core.di.data.source.local
+package org.d3if1008.core.data.source.local
 
 import kotlinx.coroutines.flow.Flow
-import org.d3if1008.core.di.data.source.local.entity.FootballEntity
-import org.d3if1008.core.di.data.source.local.room.FootballDao
-import javax.inject.Inject
-import javax.inject.Singleton
+import org.d3if1008.core.data.source.local.entity.FootballEntity
+import org.d3if1008.core.data.source.local.room.FootballDao
 
-@Singleton
-class LocalDataSource @Inject constructor(private val footballDao: FootballDao) {
+
+class LocalDataSource(private val footballDao: FootballDao) {
 
     fun getAllFootball(): Flow<List<FootballEntity>> = footballDao.getAllFootball()
 

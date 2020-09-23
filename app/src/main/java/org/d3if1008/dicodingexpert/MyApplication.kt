@@ -1,18 +1,31 @@
 package org.d3if1008.dicodingexpert
 
 import android.app.Application
-import org.d3if1008.core.di.CoreComponent
-import org.d3if1008.core.di.DaggerCoreComponent
-import org.d3if1008.dicodingexpert.di.AppComponent
-import org.d3if1008.dicodingexpert.di.DaggerAppComponent
+import org.d3if1008.core.di.databaseModule
+import org.d3if1008.core.di.networkModule
+import org.d3if1008.core.di.repositoryModule
+import org.d3if1008.dicodingexpert.di.useCaseModule
+import org.d3if1008.dicodingexpert.di.viewModelModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
-open class MyApplication : Application() {
 
-    private val coreComponent: CoreComponent by lazy {
-        DaggerCoreComponent.factory().create(applicationContext)
-    }
-
-    val appComponent: AppComponent by lazy {
-        DaggerAppComponent.factory().create(coreComponent)
+class MyApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidLogger()
+            androidContext(this@MyApplication)
+            modules(
+                listOf(
+                    databaseModule,
+                    networkModule,
+                    repositoryModule,
+                    useCaseModule,
+                    viewModelModule
+                )
+            )
+        }
     }
 }

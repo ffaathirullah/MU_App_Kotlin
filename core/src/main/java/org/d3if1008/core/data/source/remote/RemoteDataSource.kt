@@ -1,18 +1,15 @@
-package org.d3if1008.core.di.data.source.remote
+package org.d3if1008.core.data.source.remote
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import org.d3if1008.core.di.data.source.remote.network.ApiResponse
-import org.d3if1008.core.di.data.source.remote.network.ApiService
-import org.d3if1008.core.di.data.source.remote.response.FootballResponse
-import javax.inject.Inject
-import javax.inject.Singleton
+import org.d3if1008.core.data.source.remote.network.ApiResponse
+import org.d3if1008.core.data.source.remote.network.ApiService
+import org.d3if1008.core.data.source.remote.response.FootballResponse
 
-@Singleton
-class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
+class RemoteDataSource (private val apiService: ApiService) {
 
     suspend fun getAllFootball(): Flow<ApiResponse<List<FootballResponse>>> {
         return flow {

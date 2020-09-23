@@ -1,4 +1,4 @@
-package org.d3if1008.core.di.data.source.remote.network
+package org.d3if1008.core.data.source.remote.network
 
 sealed class ApiResponse<out R> {
     data class Success<out T>(val data: T) : ApiResponse<T>()

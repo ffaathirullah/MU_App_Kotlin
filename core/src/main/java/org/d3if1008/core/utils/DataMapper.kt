@@ -1,9 +1,7 @@
 package org.d3if1008.core.utils
-
-import org.d3if1008.core.di.data.source.local.entity.FootballEntity
-import org.d3if1008.core.di.data.source.remote.response.FootballResponse
+import org.d3if1008.core.data.source.local.entity.FootballEntity
+import org.d3if1008.core.data.source.remote.response.FootballResponse
 import org.d3if1008.core.domain.model.Football
-
 
 object DataMapper {
     fun mapResponsesToEntities(input: List<FootballResponse>): List<FootballEntity> {
@@ -24,7 +22,6 @@ object DataMapper {
         }
         return footballList
     }
-
     fun mapEntitiesToDomain(input: List<FootballEntity>): List<Football> =
         input.map {
             Football(
@@ -39,7 +36,6 @@ object DataMapper {
                 isFavorite = it.isFavorite
             )
         }
-
     fun mapDomainToEntity(input: Football) = FootballEntity(
         footballId  = input.footballId,
         description = input.description,

@@ -1,4 +1,4 @@
-package org.d3if1008.core.di.data.source.remote.response
+package org.d3if1008.core.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 

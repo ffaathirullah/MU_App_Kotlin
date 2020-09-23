@@ -1,14 +1,20 @@
 package org.d3if1008.dicodingexpert.di
 
-import dagger.Binds
-import dagger.Module
 import org.d3if1008.core.domain.usecase.FootballInteractor
 import org.d3if1008.core.domain.usecase.FootballUseCase
+import org.d3if1008.dicodingexpert.detail.DetailFootballViewModel
+import org.d3if1008.dicodingexpert.favorite.FavoriteViewModel
+import org.d3if1008.dicodingexpert.home.HomeViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-abstract class AppModule {
 
-    @Binds
-    abstract fun provideTourismUseCase(footballInteractor: FootballInteractor): FootballUseCase
+val useCaseModule = module {
+    factory<FootballUseCase> { FootballInteractor(get()) }
+}
 
+val viewModelModule = module {
+    viewModel { HomeViewModel(get()) }
+    viewModel { FavoriteViewModel(get()) }
+    viewModel { DetailFootballViewModel(get()) }
 }

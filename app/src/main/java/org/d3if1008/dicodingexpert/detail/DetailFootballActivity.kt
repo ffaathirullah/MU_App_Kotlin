@@ -1,33 +1,24 @@
 package org.d3if1008.dicodingexpert.detail
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_detail_football.*
 import kotlinx.android.synthetic.main.content_detail_football.*
 import org.d3if1008.core.domain.model.Football
-import org.d3if1008.dicodingexpert.MyApplication
 import org.d3if1008.dicodingexpert.R
-import org.d3if1008.dicodingexpert.di.ViewModelFactory
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailFootballActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var factory: ViewModelFactory
-
-    private val detaillFootballViewModel: DetailFootballViewModel by viewModels {
-        factory
-    }
+    private val detaillFootballViewModel: DetailFootballViewModel by viewModel()
 
     companion object {
         const val EXTRA_DATA = "extra_data"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_football)
         setSupportActionBar(tollbar)

@@ -1,4 +1,4 @@
-package org.d3if1008.core.di.data.source.local.entity
+package org.d3if1008.core.data.source.local.entity
 
 import android.os.Parcelable
 import androidx.annotation.NonNull

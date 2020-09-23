@@ -3,9 +3,8 @@ package org.d3if1008.core.domain.usecase
 
 import org.d3if1008.core.domain.model.Football
 import org.d3if1008.core.domain.repository.IFootballRepository
-import javax.inject.Inject
 
-class FootballInteractor @Inject constructor(private val footballRepository: IFootballRepository): FootballUseCase {
+class FootballInteractor(private val footballRepository: IFootballRepository): FootballUseCase {
 
     override fun getAllFootball() = footballRepository.getAllFootball()
 

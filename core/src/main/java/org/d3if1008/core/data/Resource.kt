@@ -1,4 +1,4 @@
-package org.d3if1008.core.di.data
+package org.d3if1008.core.data
 
 sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     class Success<T>(data: T) : Resource<T>(data)
