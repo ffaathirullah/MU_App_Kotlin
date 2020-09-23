@@ -8,5 +8,6 @@
     <string name="menu_home">Home</string>
     <string name="menu_map">Maps</string>
     <string name="menu_favorite">Favorite</string>
+    <string name="title_favorite">favorite</string>
 
 </resources>

@@ -3,7 +3,6 @@ package org.d3if1008.dicodingexpert.di
 import org.d3if1008.core.domain.usecase.FootballInteractor
 import org.d3if1008.core.domain.usecase.FootballUseCase
 import org.d3if1008.dicodingexpert.detail.DetailFootballViewModel
-import org.d3if1008.dicodingexpert.favorite.FavoriteViewModel
 import org.d3if1008.dicodingexpert.home.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -15,6 +14,5 @@ val useCaseModule = module {
 
 val viewModelModule = module {
     viewModel { HomeViewModel(get()) }
-    viewModel { FavoriteViewModel(get()) }
     viewModel { DetailFootballViewModel(get()) }
 }

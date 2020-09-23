@@ -44,8 +44,8 @@ class FootballRepository constructor(
     }
 
     override fun setFavoriteFootball(football: Football, state: Boolean) {
-        val tourismEntity = DataMapper.mapDomainToEntity(football)
-        appExecutors.diskIO().execute { localDataSource.setFavoriteFootball(tourismEntity, state) }
+        val footballEntity = DataMapper.mapDomainToEntity(football)
+        appExecutors.diskIO().execute { localDataSource.setFavoriteFootball(footballEntity, state) }
     }
 }
 
