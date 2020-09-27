@@ -1,6 +1,8 @@
 package org.d3if1008.core.di
 
 import androidx.room.Room
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.d3if1008.core.data.source.local.LocalDataSource
@@ -19,10 +21,13 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<FootballDatabase>().footballDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("dicoding".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             FootballDatabase::class.java, "db.json"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration().openHelperFactory(factory)
+            .build()
     }
 }
 
