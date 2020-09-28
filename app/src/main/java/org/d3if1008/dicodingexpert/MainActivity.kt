@@ -1,6 +1,9 @@
 package org.d3if1008.dicodingexpert
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -14,6 +17,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import org.d3if1008.dicodingexpert.home.HomeFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var broadcastReceiver: BroadcastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +30,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             tollbar,
             R.string.drawer_open,
             R.string.drawer_close
+
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
@@ -38,6 +43,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commit()
             supportActionBar?.title = getString(R.string.app_name)
         }
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(broadcastReceiver)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -62,6 +73,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun registerBroadCastReceiver() {
+        broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                when (intent.action) {
+                    Intent.ACTION_POWER_CONNECTED -> {
+                        tv_power_status.text = getString(R.string.power_connected)
+                    }
+                    Intent.ACTION_POWER_DISCONNECTED -> {
+                        tv_power_status.text = getString(R.string.power_disconnected)
+                    }
+                }
+            }
+        }
+        val intentFilter = IntentFilter()
+        intentFilter.apply {
+            addAction(Intent.ACTION_POWER_CONNECTED)
+            addAction(Intent.ACTION_POWER_DISCONNECTED)
+        }
+        registerReceiver(broadcastReceiver, intentFilter)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        registerBroadCastReceiver()
     }
 }
 

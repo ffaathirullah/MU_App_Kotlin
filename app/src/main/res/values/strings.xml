@@ -9,5 +9,7 @@
     <string name="menu_map">Maps</string>
     <string name="menu_favorite">Favorite</string>
     <string name="title_favorite">favorite</string>
+    <string name="power_connected">Power connected!</string>
+    <string name="power_disconnected">Power disconnected!</string>
 
 </resources>
