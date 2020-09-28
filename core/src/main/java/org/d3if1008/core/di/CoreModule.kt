@@ -32,11 +32,15 @@ val databaseModule = module {
     }
 }
 
+
+
 val networkModule = module {
     single {
-        val hostname = "dicoding-tourism-api.appspot.com"
+        val hostname = "https://raw.githubusercontent.com/ffaathirullah/json4/master/"
         val certificatePinner = CertificatePinner.Builder()
-            .add(hostname, "sha256/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=")
+            .add(hostname, "sha256/ODKjQ6+i+TVJ97JdbHWBJQ2gfxWgiphouCnTv8QypNc=")
+            .add(hostname, "sha256/YZPgTZ+woNCCCIW3LH2CxQeLzB/1m42QcCTBSdgayjs=")
+            .add(hostname, "sha256/iie1VXtL7HzAMF+/PVPR9xzT80kQxdZeJ+zduCB3uj0=")
             .build()
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -44,6 +48,8 @@ val networkModule = module {
             .readTimeout(120, TimeUnit.SECONDS)
             .certificatePinner(certificatePinner)
             .build()
+
+
     }
     single {
         val retrofit = Retrofit.Builder()
@@ -53,6 +59,7 @@ val networkModule = module {
             .build()
         retrofit.create(ApiService::class.java)
     }
+
 }
 
 val repositoryModule = module {
