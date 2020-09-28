@@ -1,12 +1,13 @@
 package org.d3if1008.dicodingexpert
 
 import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -17,7 +18,6 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import org.d3if1008.dicodingexpert.home.HomeFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var broadcastReceiver: BroadcastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,11 +46,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    override fun onStop() {
-        super.onStop()
-        unregisterReceiver(broadcastReceiver)
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         var fragment: Fragment? = null
         var title = getString(R.string.app_name)
@@ -60,8 +55,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 title = getString(R.string.app_name)
             }
             R.id.nav_favorite -> {
-                val uri = Uri.parse("d3if1008://favorite")
-                startActivity(Intent(Intent.ACTION_VIEW, uri))
+                    val uri = Uri.parse("d3if1008://favorite")
+                    startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
         }
         if (fragment != null) {
@@ -73,32 +68,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+
+
     }
 
-    private fun registerBroadCastReceiver() {
-        broadcastReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
-                when (intent.action) {
-                    Intent.ACTION_POWER_CONNECTED -> {
-                        tv_power_status.text = getString(R.string.power_connected)
-                    }
-                    Intent.ACTION_POWER_DISCONNECTED -> {
-                        tv_power_status.text = getString(R.string.power_disconnected)
-                    }
-                }
-            }
-        }
-        val intentFilter = IntentFilter()
-        intentFilter.apply {
-            addAction(Intent.ACTION_POWER_CONNECTED)
-            addAction(Intent.ACTION_POWER_DISCONNECTED)
-        }
-        registerReceiver(broadcastReceiver, intentFilter)
-    }
 
-    override fun onStart() {
-        super.onStart()
-        registerBroadCastReceiver()
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition()
+        }
     }
 }
 
