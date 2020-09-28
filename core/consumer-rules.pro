@@ -3,7 +3,7 @@
 -keep,includedescriptorclasses interface net.sqlcipher.** { *; }
 
 
-##---------------Begin: proguard configuration for Gson ----------
+##---------------Begin: proguard configuration for Gson  ----------
 # Gson uses generic type information stored in a class file when working with fields. Proguard
 # removes such information by default, so configure it to keep all of it.
 -keepattributes Signature
@@ -27,11 +27,11 @@
 
 # Prevent R8 from leaving Data object members always null
 -keepclassmembers,allowobfuscation class * {
-@com.google.gson.annotations.SerializedName <fields>;
+  @com.google.gson.annotations.SerializedName <fields>;
 }
 
 
-##---------------Begin: proguard configuration for Retrofit ----------
+##---------------Begin: proguard configuration for Retrofit  ----------
 # Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
 # EnclosingMethod is required to use InnerClasses.
 -keepattributes Signature, InnerClasses, EnclosingMethod
@@ -41,7 +41,7 @@
 
 # Retain service method parameters when optimizing.
 -keepclassmembers,allowshrinking,allowobfuscation interface * {
-@retrofit2.http.* <methods>;
+    @retrofit2.http.* <methods>;
 }
 
 # Ignore annotation used for build tooling.
@@ -65,23 +65,23 @@
 -dontwarn kotlinx.**
 
 
-##---------------Begin: proguard configuration for Glide ----------
+##---------------Begin: proguard configuration for Glide  ----------
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep class * extends com.bumptech.glide.module.AppGlideModule {
-<init>(...);
+ <init>(...);
 }
 -keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
-**[] $VALUES;
-public *;
+  **[] $VALUES;
+  public *;
 }
 -keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
-*** rewind();
+  *** rewind();
 }
 
 # Uncomment for DexGuard only
 #-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 
-##---------------Begin: proguard configuration for RxJava ----------
+##---------------Begin: proguard configuration for RxJava  ----------
 # Uncomment if you use RxJava
 #-dontwarn java.util.concurrent.Flow*
